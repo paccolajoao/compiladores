@@ -1,13 +1,14 @@
 class analise():
     def analisador(self, text):
-        aux_string = ""
+        aux_string = ''
 
         for i in text:
+            #print(i)
             #vê se o i não é espaço e se não for, nem coloca
             if(i != ' '):
                aux_string = aux_string + i;
             #compara para ver se é um limitador - pode ser melhorado!
-            if(i == ';'or i =='+'or i == '-' or i == '*' or i == '/'or i == '=' or i == ',' or i == ';' or i == ':' or i == '<' or i == '>' or i == '('or i ==')'):
+            if(aux_string in simbolos_especiais or i in simbolos_especiais):
                 #pega o simbolo e coloca vazio no lugar, para não salvar o simbolo junto com a palavra
                 aux_string = aux_string.replace(i, '')
                 #verifica se aux_string é diferente de vazio, se for, coloca no vetor
@@ -46,12 +47,12 @@ class analise():
             # verifica o resto que sobra, sem ser simbolo e palavra
             else:
                 lex_table.append('Id' + str(index_aux))
-                index_aux += 1    
+                index_aux += 1
         #printa quase em forma de tabela
         for x in range(len(vector_aux)):
-           print (lex_table[x], vector_aux[x])
+          print (lex_table[x], vector_aux[x])
 
-#abre o arquivo pascal  
+#abre o arquivo pascal
 text = (open('test.pas').read())
 
 palavrasReservadas = [ "and", "array", "begin", "case", "const", "div", "do", "downto", "else", "end", "file", "for", "func", "goto", "if", "in", "label", "mod", "not", "of", "or", "packed", "process", "program", "record", "repeat", "set", "then", "to", "type", "until", "var", "while", "with", "integer", "real", "writeln", "readln", "char", "showmessage", "uses"]
