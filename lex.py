@@ -1,6 +1,9 @@
 #/usr/bin/python3
+#Luis Fernando Uzai
+#Luis Felipe Bueno
+#João Pedro Paccola
 class analise():
-    def analisador(self, text):
+    def analisador(self, text, line):
         aux_string = ''
         dois_pontos_igual = False
         lendo_string = False
@@ -17,6 +20,7 @@ class analise():
             if(dois_pontos_igual):
                 dois_pontos_igual = False
                 vector_aux.append(aux_string)
+                line_aux.append(line)
                 aux_string = ''
 
             # verifica se o igual está ligado a um ponto
@@ -30,15 +34,18 @@ class analise():
                 #verifica se aux_string é diferente de vazio, se for, coloca no vetor
                 if(aux_string != ''):
                     vector_aux.append(aux_string)
+                    line_aux.append(line)
                 #coloca o simbolo no vetor
                 vector_aux.append(text[i])
+                line_aux.append(line)
                 #zera o aux_string, para pegar a proxima palavra
                 aux_string = ''
-            
+
             # Se estiver lendo string e encontrar outro ', parar de ler string e adicionar cadeia na tabela
             elif(lendo_string == True and text[i]=='\''):
                 lendo_string = False
                 vector_aux.append(aux_string)
+                line_aux.append(line)
                 aux_string = ''
 
             # Se encontrar ' e nao estiver lendo string, começar a ler
@@ -48,12 +55,14 @@ class analise():
             #se for espaço (que é um limitador e não temos que guardar)
             elif (text[i] == ' ' and aux_string != '' and lendo_string == False):
                 vector_aux.append(aux_string)
+                line_aux.append(line)
                 aux_string = ''
 
 
         #se a linha estiver sozinha (não tendo nenhum limitador) salva a palavra
         if(aux_string != ''):
             vector_aux.append(aux_string)
+            line_aux.append(line)
             aux_string = ''
 
 
@@ -62,9 +71,10 @@ class analise():
     def tabela_tokens(self, vector_aux):
         index_aux = 1
         for i in range(len(vector_aux)):
-
+            if((vector_aux[i][0] is "'")):
+                lex_table.append('TEXTO')
             # verifica se está em palavras reservadas e da um upper, que é a mesma coisa que pegar de outro vetor =D
-            if(vector_aux[i] in palavrasReservadas):
+            elif(vector_aux[i] in palavrasReservadas):
                 lex_aux = palavrasReservadas.index(vector_aux[i])
                 lex_table.append(palavrasReservadas[lex_aux].upper())
 
@@ -72,18 +82,17 @@ class analise():
             elif(vector_aux[i] in simbolos_especiais):
                 lex_aux = simbolos_especiais.index(vector_aux[i])
                 lex_table.append(token_especiais[lex_aux])
-
             # verifica o resto que sobra, sem ser simbolo e palavra
             else:
                 lex_table.append('Id' + str(index_aux))
                 index_aux += 1
+
         #printa quase em forma de tabela
         for x in range(len(vector_aux)):
-          print (lex_table[x], vector_aux[x])
+          print ('Token: ', lex_table[x],'\nLexema: ', vector_aux[x],'\nLinha:', line_aux[x],'\n\n\n')
 
 #abre o arquivo pascal
 text = (open('test.pas').read())
-
 palavrasReservadas = [ "and", "array", "begin", "case", "const", "div", "do", "downto", "else", "end", "file", "for", "func", "goto", "if", "in", "label", "mod", "not", "of", "or", "packed", "process", "program", "record", "repeat", "set", "then", "to", "type", "until", "var", "while", "with", "integer", "real", "writeln", "readln", "char", "showmessage", "uses"]
 
 simbolos_especiais = [ '+', '-', '*', '/', '=', ',', ';', ':', '<', '>', '(', ')', '{', '}', '.', '|',':=']
@@ -92,6 +101,7 @@ token_especiais = [ "ADICAO", "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "IGUAL", 
 
 vector_aux = []
 lex_table = []
+line_aux = []
 
 #separa todas as linhas em um vetor
 text_lines = text.splitlines()
@@ -102,9 +112,7 @@ for z in text_lines:
 
 #analise lexica
 lex = analise()
-for i in text_letters:
+for i in range(len(text_letters)):
     pass
-    lex.analisador(i)
-
-#printa o vetor com todas as palavras para separar
+    lex.analisador(text_letters[i], i+1)
 lex.tabela_tokens(vector_aux)
