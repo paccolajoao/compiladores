@@ -3,11 +3,19 @@ program numerosPerfeitos;
 uses crt;
 
 var
- ate, x, soma, i: integer;
+ ate, x, soma, i: integer; //comentario
+
+{
+comentario comentario
+}
 
 begin
  clrscr;
  x := 0;
+ (*
+   comentario
+   comentario
+ *)
  writeln('Numeros perfeitos abaixo de');
  Readln(ate);
  repeat
