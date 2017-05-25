@@ -1,7 +1,7 @@
 #/usr/bin/python3
 #Luis Fernando Uzai
 #Luis Felipe Bueno
-#João Pedro Paccola
+#Joao Pedro Paccola
 
 comentario_multiplas = False # Definida como global pois ela não pode ser resetada a cada linha
 
@@ -87,10 +87,33 @@ class analise():
 
     # define o vetor onde irá conter as palavras e simbolos reservados
     def tabela_tokens(self, vector_aux):
-        index_aux = 1
+        index_aux = 1 # Variável para numeração de identificadores
         for i in range(len(vector_aux)):
             if((vector_aux[i][0] is "'")):
                 lex_table.append('TEXTO')
+
+            # Se a primeira letra for um numero, tem que ser um numero inteiro ou real
+            elif(vector_aux[i][0].isdecimal() == True):
+                # Passa pela palavra verificando se tem ponto ou letra
+                ponto = False;
+                erro = False;
+                for char in vector_aux[i]:
+                    if(char == "." and ponto == False):
+                        ponto = True;
+                    elif(char == "." and ponto == True):
+                        erro = True;
+                        # Erro de mais de um ponto no número, acusa erro
+                    elif(char.isalpha() == True):
+                        erro = True;
+
+                if(erro == False):
+                    if(ponto == True):
+                        lex_table.append('NUMERO REAL')
+                    else:
+                        lex_table.append('NUMERO INTEIRO')
+                else:
+                    lex_table.append('NUMERO OU ID INVALIDO')
+
             # verifica se está em palavras reservadas e da um upper, que é a mesma coisa que pegar de outro vetor =D
             elif(vector_aux[i] in palavrasReservadas):
                 lex_aux = palavrasReservadas.index(vector_aux[i])

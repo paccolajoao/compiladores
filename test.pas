@@ -19,7 +19,7 @@ begin
  writeln('Numeros perfeitos abaixo de');
  Readln(ate);
  repeat
-  x := x + 1;
+  x := x + 1.666;
   soma := 0;
   for i := 1 to x - 1 do
   begin
