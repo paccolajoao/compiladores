@@ -34,13 +34,14 @@ class analise():
 
                 if(dois_pontos_igual):
                     dois_pontos_igual = False
-                    vector_aux.append(aux_string)
-                    line_aux.append(line)
                     aux_string = ''
 
                 # verifica se o igual está ligado a um ponto
-                elif(text[i] == ':' and text[i+1] == '='):
+                elif(i < (len(text) -1) and (text[i]+text[i+1]) in simbolos_especiais):
                     dois_pontos_igual = True
+                    aux_string = aux_string + text[i+1]
+                    vector_aux.append(aux_string)
+                    line_aux.append(line)
 
                 #compara para ver se é um limitador - pode ser melhorado!
                 elif(aux_string in simbolos_especiais or text[i] in simbolos_especiais):
@@ -136,9 +137,9 @@ class analise():
 text = (open('test.pas').read())
 palavrasReservadas = [ "and", "array", "begin", "case", "const", "div", "do", "downto", "else", "end", "file", "for", "func", "goto", "if", "in", "label", "mod", "not", "of", "or", "packed", "process", "program", "record", "repeat", "set", "then", "to", "type", "until", "var", "while", "with", "integer", "real", "writeln", "readln", "char", "showmessage", "uses"]
 
-simbolos_especiais = [ '+', '-', '*', '/', '=', ',', ';', ':', '<', '>', '(', ')', '{', '}', '.', '|',':=']
+simbolos_especiais = [ '+', '-', '*', '/', '=', ',', ';', ':', '<', '>', '(', ')', '{', '}', '.', '|',':=', '>=','<=', '<>', '!', '~', '<<', '>>', '+=', '-=', '*=', '/=']
 
-token_especiais = [ "ADICAO", "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "IGUAL", "VIRGULA", "PONTO_VIRGULA", "DOIS_PONTOS", "MENOR", "MAIOR", "ABRE_PARENTESES", "FECHA_PARENTESES", "ABRE_CHAVES", "FECHA_CHAVES", "PONTO", "BARRA","DOIS_PONTOS_IGUAL"]
+token_especiais = [ "ADICAO", "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "IGUAL", "VIRGULA", "PONTO_VIRGULA", "DOIS_PONTOS", "MENOR", "MAIOR", "ABRE_PARENTESES", "FECHA_PARENTESES", "ABRE_CHAVES", "FECHA_CHAVES", "PONTO", "BARRA","DOIS_PONTOS_IGUAL", "MAIOR_IGUAL", "MENOR_IGUAL", "DIFERENTE", "NOT", "INVERTE_BIT", "DESLOCA_ESQUERDA", "DESLOCA_DIREITA","SOMA_ATRIBUI","SUBTRAI_ATRIBUI","MULTIPLICA_ATRIBUI", "DIVIDE_ATRIBUI"]
 
 vector_aux = []
 lex_table = []
