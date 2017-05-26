@@ -11,11 +11,10 @@ class analise():
         dois_pontos_igual = False
         lendo_string = False
         comentario_linha = False
+        numero_real = False;
         global comentario_multiplas # Definir pro Python que ele deve usar a variavel global
 
         for i in range(len(text)):
-            #print(i,'  ',text[i])
-
             # Verifica se é começo ou final de comentario de uma ou duas linhas
             if((text[i]=='{' or (text[i]=="(" and text[i+1]=='*')) and comentario_multiplas==False):
                 comentario_multiplas = True
@@ -32,16 +31,25 @@ class analise():
                 elif(text[i] != ' '):
                     aux_string = aux_string + text[i];
 
-                if(dois_pontos_igual):
+                if(numero_real):
+                    numero_real = False
+
+                elif(dois_pontos_igual):
                     dois_pontos_igual = False
                     aux_string = ''
 
                 # verifica se o igual está ligado a um ponto
-                elif(i < (len(text) -1) and (text[i]+text[i+1]) in simbolos_especiais):
+                elif((i < (len(text) -1) and (text[i]+text[i+1]) in simbolos_especiais)):
                     dois_pontos_igual = True
                     aux_string = aux_string + text[i+1]
                     vector_aux.append(aux_string)
                     line_aux.append(line)
+
+                # verifica se o número é float e precisa continuar a ler
+                elif(aux_string.isdecimal() and text[i+1] == '.'):
+                    print(aux_string, '   ' , text[i+1] =='.')
+                    numero_real = True;
+                # verifica se o número é floa
 
                 #compara para ver se é um limitador - pode ser melhorado!
                 elif(aux_string in simbolos_especiais or text[i] in simbolos_especiais):

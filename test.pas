@@ -19,7 +19,7 @@ begin
  writeln('Numeros perfeitos abaixo de');
  Readln(ate);
  repeat
-  x := x + 1.666;
+  x1 := x + 1.666;
   soma := 0;
   for i := 1 to x - 1 do
   begin
@@ -30,7 +30,7 @@ begin
   begin
  writeln(x);
   end;
- until (x > ate);
+ until (x1 >= 3.22);
  writeln('Pressione qualquer tecla para finalizar…');
  readkey;
 end.
