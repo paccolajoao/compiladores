@@ -1,12 +1,11 @@
-#/usr/bin/python3
-#Luis Fernando Uzai
-#Luis Felipe Bueno
-#Joao Pedro Paccola
-
 comentario_multiplas = False # Definida como global pois ela não pode ser resetada a cada linha
+palavrasReservadas = [ "and", "array", "begin", "case", "const", "div", "do", "downto", "else", "end", "file", "for", "func", "goto", "if", "in", "label", "mod", "not", "of", "or", "packed", "process", "program", "record", "repeat", "set", "then", "to", "type", "until", "var", "while", "with", "integer", "real", "writeln", "readln", "char", "showmessage", "uses"]
+simbolos_especiais = [ '+', '-', '*', '/', '=', ',', ';', ':', '<', '>', '(', ')', '{', '}', '.', '|',':=', '>=','<=', '<>', '!', '~', '<<', '>>', '+=', '-=', '*=', '/=']
+token_especiais = [ "ADICAO", "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "IGUAL", "VIRGULA", "PONTO_VIRGULA", "DOIS_PONTOS", "MENOR", "MAIOR", "ABRE_PARENTESES", "FECHA_PARENTESES", "ABRE_CHAVES", "FECHA_CHAVES", "PONTO", "BARRA","DOIS_PONTOS_IGUAL", "MAIOR_IGUAL", "MENOR_IGUAL", "DIFERENTE", "NOT", "INVERTE_BIT", "DESLOCA_ESQUERDA", "DESLOCA_DIREITA","SOMA_ATRIBUI","SUBTRAI_ATRIBUI","MULTIPLICA_ATRIBUI", "DIVIDE_ATRIBUI"]
 
-class analise():
-    def analisador(self, text, line):
+
+class analise_lexica():
+    def analisador(self, text, line, vector_aux, line_aux):
         aux_string = ''
         dois_pontos_igual = False
         lendo_string = False
@@ -47,7 +46,7 @@ class analise():
 
                 # verifica se o número é float e precisa continuar a ler
                 elif(aux_string.isdecimal() and text[i+1] == '.'):
-                    print(aux_string, '   ' , text[i+1] =='.')
+                    #print(aux_string, '   ' , text[i+1] =='.')
                     numero_real = True;
                 # verifica se o número é floa
 
@@ -95,7 +94,7 @@ class analise():
 
 
     # define o vetor onde irá conter as palavras e simbolos reservados
-    def tabela_tokens(self, vector_aux):
+    def tabela_tokens(self, vector_aux,lex_table,line_aux):
         index_aux = 1 # Variável para numeração de identificadores
         for i in range(len(vector_aux)):
             if((vector_aux[i][0] is "'")):
@@ -134,35 +133,11 @@ class analise():
                 lex_table.append(token_especiais[lex_aux])
             # verifica o resto que sobra, sem ser simbolo e palavra
             else:
-                lex_table.append('Id' + str(index_aux))
+                lex_table.append('Id')
+                #lex_table.append('Id' + str(index_aux))
                 index_aux += 1
 
         #printa quase em forma de tabela
-        for x in range(len(vector_aux)):
-          print ('Token: ', lex_table[x],'\nLexema: ', vector_aux[x],'\nLinha:', line_aux[x],'\n\n\n')
-
-#abre o arquivo pascal
-text = (open('test.pas').read())
-palavrasReservadas = [ "and", "array", "begin", "case", "const", "div", "do", "downto", "else", "end", "file", "for", "func", "goto", "if", "in", "label", "mod", "not", "of", "or", "packed", "process", "program", "record", "repeat", "set", "then", "to", "type", "until", "var", "while", "with", "integer", "real", "writeln", "readln", "char", "showmessage", "uses"]
-
-simbolos_especiais = [ '+', '-', '*', '/', '=', ',', ';', ':', '<', '>', '(', ')', '{', '}', '.', '|',':=', '>=','<=', '<>', '!', '~', '<<', '>>', '+=', '-=', '*=', '/=']
-
-token_especiais = [ "ADICAO", "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "IGUAL", "VIRGULA", "PONTO_VIRGULA", "DOIS_PONTOS", "MENOR", "MAIOR", "ABRE_PARENTESES", "FECHA_PARENTESES", "ABRE_CHAVES", "FECHA_CHAVES", "PONTO", "BARRA","DOIS_PONTOS_IGUAL", "MAIOR_IGUAL", "MENOR_IGUAL", "DIFERENTE", "NOT", "INVERTE_BIT", "DESLOCA_ESQUERDA", "DESLOCA_DIREITA","SOMA_ATRIBUI","SUBTRAI_ATRIBUI","MULTIPLICA_ATRIBUI", "DIVIDE_ATRIBUI"]
-
-vector_aux = []
-lex_table = []
-line_aux = []
-
-#separa todas as linhas em um vetor
-text_lines = text.splitlines()
-text_letters = []
-#separa todas as letras das linhas em um vetor
-for z in text_lines:
-    text_letters.append(list(z))
-
-#analise lexica
-lex = analise()
-for i in range(len(text_letters)):
-    pass
-    lex.analisador(text_letters[i], i+1)
-lex.tabela_tokens(vector_aux)
+#        for x in range(len(vector_aux)):
+#          print ('Token: ', lex_table[x],'\nLexema: ', vector_aux[x],'\nLinha:', line_aux[x],'\n')
+pass
