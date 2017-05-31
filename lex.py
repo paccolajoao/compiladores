@@ -98,7 +98,7 @@ class analise_lexica():
         index_aux = 1 # Variável para numeração de identificadores
         for i in range(len(vector_aux)):
             if((vector_aux[i][0] is "'")):
-                lex_table.append('TEXTO')
+                lex_table.append('CADEIA DE CARACTERES')
 
             # Se a primeira letra for um numero, tem que ser um numero inteiro ou real
             elif(vector_aux[i][0].isdecimal() == True):
@@ -138,6 +138,6 @@ class analise_lexica():
                 index_aux += 1
 
         #printa quase em forma de tabela
-#        for x in range(len(vector_aux)):
-#          print ('Token: ', lex_table[x],'\nLexema: ', vector_aux[x],'\nLinha:', line_aux[x],'\n')
+        #for x in range(len(vector_aux)):
+          #print ('Token: ', lex_table[x],'\nLexema: ', vector_aux[x],'\nLinha:', line_aux[x],'\n')
 pass
