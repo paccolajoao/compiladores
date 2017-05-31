@@ -23,7 +23,7 @@ class analise_sintatica():
 		global k
 		virgula = True
 		if(token[k] == 'INTEGER' or token[k] == 'REAL' or token[k] == 'CHAR'):
-			k = k+1
+			return True
 		elif(token[k] == 'ABRE_PARENTESES'):
 			k = k+1
 			while(virgula):
@@ -39,33 +39,43 @@ class analise_sintatica():
 					print('Erro sintático Identificador esperado: ',line_aux[k])
 			pass
 		elif(self.const(token,line_aux) == True):
-			k = k+1;
-			print(k)
+			k = k+1
 			if(token[k] == 'PONTO'):
 				k = k+1
 				if(token[k] == 'PONTO'):
 					k = k+1
-					if(self.const(token,line_aux,k) == True):
-						k= k+1
+					if(self.const(token,line_aux) == True):
+						print(k)
+						return True
 					else:
 						print('Erro sintático constante esperada: ',line_aux[k])
 				else:
-					print('Erro sintático "." esperaado: ',line_aux[k])
+					print('Erro sintático "." esperado: ',line_aux[k])
 			else:
 				print('Erro sintático "." esperado: ',line_aux[k])
 		else:
 			print('Erro sintático, nem Identificador, nem "(" e nem const achado: ',line_aux[k])
+		print(k)
 		return True
 	pass
+	def flist(self, token, line_aux):
+		virgula = True
+		if(token[k] == 'Id'):
+			k = k+1
+			while(virgula) :
+				if(token[k] == 'VIRGULA'):
+				elif(token[k] == 'DOIS_PONTOS'):
+					#tem que ver se é type
+
 
 	def const(self,token,line_aux):
 		global k
 		if(token[k] == 'CADEIA DE CARACTERES'):
-			k = k+1;
+			pass
 		elif(token[k] == 'ADICAO' or token[k] == 'SUBTRACAO'):
-			k = k+1;
+			k = k+1
 			if(token[k] == 'Id' or token[k] == 'NUMERO_INTEIRO' or token[k] == 'NUMERO_REAL'):
-				k = k+1;
+				pass
 			else:
 				print('Erro sintático na linha: ',line_aux[k],'se esperava identificador, inteiro ou real')
 				return False
