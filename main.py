@@ -6,7 +6,7 @@ from lex import analise_lexica
 from sintax import analise_sintatica
 #abre o arquivo pascal
 text = (open('test.pas').read())
-
+text = text.lower()
 vector_aux = []
 lex_table = []
 line_aux = []

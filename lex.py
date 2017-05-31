@@ -45,7 +45,7 @@ class analise_lexica():
                     line_aux.append(line)
 
                 # verifica se o número é float e precisa continuar a ler
-                elif(aux_string.isdecimal() and text[i+1] == '.'):
+                elif(i < (len(text) -1) and aux_string.isdecimal() and text[i+1] == '.'):
                     #print(aux_string, '   ' , text[i+1] =='.')
                     numero_real = True;
                 # verifica se o número é floa
@@ -98,7 +98,7 @@ class analise_lexica():
         index_aux = 1 # Variável para numeração de identificadores
         for i in range(len(vector_aux)):
             if((vector_aux[i][0] is "'")):
-                lex_table.append('CADEIA DE CARACTERES')
+                lex_table.append('CADEIA_DE_CARACTERES')
 
             # Se a primeira letra for um numero, tem que ser um numero inteiro ou real
             elif(vector_aux[i][0].isdecimal() == True):
@@ -116,9 +116,9 @@ class analise_lexica():
 
                 if(erro == False):
                     if(ponto == True):
-                        lex_table.append('NUMERO REAL')
+                        lex_table.append('NUMERO_REAL')
                     else:
-                        lex_table.append('NUMERO INTEIRO')
+                        lex_table.append('NUMERO_INTEIRO')
                 else:
                     lex_table.append('NUMERO OU ID INVALIDO')
 
@@ -138,6 +138,6 @@ class analise_lexica():
                 index_aux += 1
 
         #printa quase em forma de tabela
-        #for x in range(len(vector_aux)):
-          #print ('Token: ', lex_table[x],'\nLexema: ', vector_aux[x],'\nLinha:', line_aux[x],'\n')
+        for x in range(len(vector_aux)):
+            print ('Token: ', lex_table[x],'\nLexema: ', vector_aux[x],'\nLinha:', line_aux[x],'\n')
 pass
