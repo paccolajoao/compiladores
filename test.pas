@@ -1,1 +1,1 @@
-(paccolao, uzai, comini)
+[10.12]

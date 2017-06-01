@@ -58,16 +58,6 @@ class analise_sintatica():
 		print(k)
 		return True
 	pass
-	def flist(self, token, line_aux):
-		virgula = True
-		if(token[k] == 'Id'):
-			k = k+1
-			while(virgula) :
-				if(token[k] == 'VIRGULA'):
-				elif(token[k] == 'DOIS_PONTOS'):
-					#tem que ver se é type
-
-
 	def const(self,token,line_aux):
 		global k
 		if(token[k] == 'CADEIA DE CARACTERES'):
