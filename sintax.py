@@ -74,17 +74,18 @@ class analise_sintatica():
 						k = k+1
 					else:
 						return True
-		while(flag_para_loop):
-			# if(term(token, line_aux) == True):
-			if(True):
-				if(token[k] == 'ADICAO'):
-					k = k+1
-				elif(token[k] == 'SUBTRACAO'):
-					k = k+1
-				elif(token[k] == 'OR'):
-					k = k+1
-				else:
-					return True
+		else:
+			while(flag_para_loop):
+				# if(term(token, line_aux) == True):
+				if(True):
+					if(token[k] == 'ADICAO'):
+						k = k+1
+					elif(token[k] == 'SUBTRACAO'):
+						k = k+1
+					elif(token[k] == 'OR'):
+						k = k+1
+					else:
+						return True
 	pass
 
 	def expression(self, token, line_aux):
