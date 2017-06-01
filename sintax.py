@@ -58,17 +58,83 @@ class analise_sintatica():
 		print(k)
 		return True
 	pass
+	def simple_expression(self, token, line_aux):
+		global k
+		flag_para_loop = True
+		if(token[k] == 'ADICAO' or token[k] == 'SUBTRACAO'):
+			k = k+1
+			while(flag_para_loop):
+				# if(term(token, line_aux) == True):
+				if(True):
+					if(token[k] == 'ADICAO'):
+						k = k+1
+					elif(token[k] == 'SUBTRACAO'):
+						k = k+1
+					elif(token[k] == 'OR'):
+						k = k+1
+					else:
+						return True
+		while(flag_para_loop):
+			# if(term(token, line_aux) == True):
+			if(True):
+				if(token[k] == 'ADICAO'):
+					k = k+1
+				elif(token[k] == 'SUBTRACAO'):
+					k = k+1
+				elif(token[k] == 'OR'):
+					k = k+1
+				else:
+					return True
+	pass
+
+	def expression(self, token, line_aux):
+		global k
+		flag_expression = False
+		flag_expression = True
+		# if(simple_expression(token,line_aux) == True)
+		if(True):
+			k = k+1
+			if(token[k] == 'IGUAL'):
+				k = k+1
+				flag_expression = True
+			elif(token[k] == 'MENOR'):
+				k = k+1
+				flag_expression = True
+			elif(token[k] == 'MAIOR'):
+				k = k+1
+				flag_expression = True
+			elif(token[k] == 'DIFERENTE'):
+				k = k+1
+				flag_expression = True
+			elif(token[k] == 'MAIOR_IGUAL'):
+				k = k+1
+				flag_expression = True
+			elif(token[k] == 'MENOR_IGUAL'):
+				k = k+1
+				flag_expression = True
+			elif(token[k] == 'IN'):
+				k = k+1
+				flag_expression = True
+			else:
+				print('Erro sintático na linha: ',line_aux[k],' operador inválido')
+			if(flag_expression):
+				# if(simple_expression(token,line_aux) == True)
+				if(True):
+					return True
+	pass
 	def const(self,token,line_aux):
 		global k
-		if(token[k] == 'CADEIA DE CARACTERES'):
-			pass
+		if(token[k] == 'CADEIA_DE_CARACTERES'):
+			return True
 		elif(token[k] == 'ADICAO' or token[k] == 'SUBTRACAO'):
 			k = k+1
 			if(token[k] == 'Id' or token[k] == 'NUMERO_INTEIRO' or token[k] == 'NUMERO_REAL'):
-				pass
+				return True
 			else:
 				print('Erro sintático na linha: ',line_aux[k],'se esperava identificador, inteiro ou real')
 				return False
+		elif(token[k] == 'Id' or token[k] == 'NUMERO_INTEIRO' or token[k] == 'NUMERO_REAL'):
+			return True
 		else:
 			print('Erro sintático na linha: ',line_aux[k], 'se esperava "+" ou "-"')
 			return False
@@ -76,4 +142,5 @@ class analise_sintatica():
 	pass
 	def analisador(self, token, line_aux):
 		#self.program(token,line_aux,0)
-		print(self.simple_type(token, line_aux))
+		# print(self.simple_type(token, line_aux))
+		print(self.simple_expression(token, line_aux))
