@@ -224,7 +224,9 @@ class analise_sintatica():
 						if(token[k].token == "PONTO_VIRGULA"):
 							k=k+1
 						elif(token[k].token == "CASE"): # se for case de novo , não tratar, pois sera tratado no if ultimo if
-						else: return True
+						else:
+							k=k+1
+							return True
 
 					else:
 						print('Erro sintático na linha: ',line_aux[k], " se esperava um type");
@@ -261,7 +263,9 @@ class analise_sintatica():
 								   							k=k+1
 								   							if (token[k].token == "PONTO_VIRGULA"):
 								   								k=k+1
-								   							else return True
+								   							else:
+								   							 k=k+1
+								   							 return True
 
 								   						else:
 															print('Erro sintático na linha: ',line_aux[k], " se esperava ) ");
@@ -293,7 +297,9 @@ class analise_sintatica():
 								   								k=k+1
 								   								if (token[k].token == "PONTO_VIRGULA"):
 								   									k=k+1
-								   								else return True
+								   								else:
+								   									k=k+1
+								   								 	return True
 
 								   							else:
 																print('Erro sintático na linha: ',line_aux[k], " se esperava ) ");
@@ -313,7 +319,9 @@ class analise_sintatica():
 								   	elif (token[k].token == "PONTO_VIRGULA"):
 								   		k=k+1
 
-								   	else return True
+								   	else:
+								   		k=k+1
+								   		return True
 
 							else:
 								print('Erro sintático na linha: ',line_aux[k], " se esperava OF ");
@@ -339,9 +347,186 @@ class analise_sintatica():
 
 	pass
 
+	#type
 	def type(self,token,line_aux):
 		global k;
-		return True
+		bool aux = True;
+
+		if (token[k].token == "TYIDEN"):
+			k=k+1
+			return True
+
+		elif (token[k].token == "packed"):
+			k=k+1
+			if (token[k].token == "array"):
+				k=k+1
+				if (token[k].token == "ABRE_COLCHETE"):
+					k=k+1
+
+					while(aux):	
+						if (self.simple_type(token, line_aux)):
+							k=k+1
+							if (token[k].token == "VIRGULA"):
+								k=k+1
+							elif (token[k].token == "FECHA_COLCHETE"):
+								k=k+1
+								if (token[k].token == "of"):
+									k=k+1
+									if(self.type(token,line_aux)):
+										k=k+1
+										return True
+									else:
+										print('Erro sintático na linha: ',line_aux[k], " se esperava um tipo TYPE");
+										return False
+								else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava 'of'");
+									return False
+							else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava ] ou ,");
+									return False
+						else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava SIMPLE TYPE");
+									return False
+				else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava [");
+									return False
+
+
+			elif (token[k].token == "file"):
+				k=k+1
+				if (token[k].token == "of"):
+					k=k+1
+					if (self.type(token,line_aux))
+						k=k+1
+						return True
+					else:
+						print('Erro sintático na linha: ',line_aux[k], " se esperava type");
+						return False
+				else:
+					print('Erro sintático na linha: ',line_aux[k], " se esperava 'of'");
+					return False
+
+			elif (token[k].token == "set"):
+				k=k+1
+				if (token[k].token == "of"):
+					k=k+1
+					if (self.simple_type(token, line_aux)):
+						k=k+1
+						return True
+					else:
+						print('Erro sintático na linha: ',line_aux[k], " se esperava sitype");
+						return False
+				else:
+					print('Erro sintático na linha: ',line_aux[k], " se esperava 'of'");
+					return False
+
+			elif (token[k].token == "record"):
+				k=k+1
+				if(self.filist(token,line_aux)):
+					k=k+1
+					if (token[k].token == "end"):
+						k=k+1
+						return True
+					else:
+						print('Erro sintático na linha: ',line_aux[k], " se esperava 'end'");
+						return False
+				else:
+					print('Erro sintático na linha: ',line_aux[k], " se esperava filist");
+					return False
+
+			elif (self.simple_type(token,line_aux)):
+				k=k+1
+				return True
+
+			else:
+				print('Erro sintático na linha: ',line_aux[k], " se esperava array ou file ou set ou record ou sitype");
+				return False
+
+
+		elif (token[k].token == "array"):
+				k=k+1
+				if (token[k].token == "ABRE_COLCHETE"):
+					k=k+1
+
+					while(aux):	
+						if (self.simple_type(token, line_aux)):
+							k=k+1
+							if (token[k].token == "VIRGULA"):
+								k=k+1
+							elif (token[k].token == "FECHA_COLCHETE"):
+								k=k+1
+								if (token[k].token == "of"):
+									k=k+1
+									if(self.type(token,line_aux)):
+										k=k+1
+										return True
+									else:
+										print('Erro sintático na linha: ',line_aux[k], " se esperava um tipo TYPE");
+										return False
+								else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava 'of'");
+									return False
+							else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava ] ou ,");
+									return False
+						else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava SIMPLE TYPE");
+									return False
+				else:
+									print('Erro sintático na linha: ',line_aux[k], " se esperava [");
+									return False
+
+
+		elif (token[k].token == "file"):
+				k=k+1
+				if (token[k].token == "of"):
+					k=k+1
+					if (self.type(token,line_aux))
+						k=k+1
+						return True
+					else:
+						print('Erro sintático na linha: ',line_aux[k], " se esperava type");
+						return False
+				else:
+					print('Erro sintático na linha: ',line_aux[k], " se esperava 'of'");
+					return False
+
+		elif (token[k].token == "set"):
+				k=k+1
+				if (token[k].token == "of"):
+					k=k+1
+					if (self.simple_type(token, line_aux)):
+						k=k+1
+						return True
+					else:
+						print('Erro sintático na linha: ',line_aux[k], " se esperava sitype");
+						return False
+				else:
+					print('Erro sintático na linha: ',line_aux[k], " se esperava 'of'");
+					return False
+
+		elif (token[k].token == "record"):
+				k=k+1
+				if(self.filist(token,line_aux)):
+					k=k+1
+					if (token[k].token == "end"):
+						k=k+1
+						return True
+					else:
+						print('Erro sintático na linha: ',line_aux[k], " se esperava 'end'");
+						return False
+				else:
+					print('Erro sintático na linha: ',line_aux[k], " se esperava filist");
+					return False
+
+		elif (self.simple_type(token,line_aux)):
+			k=k+1
+			return True
+
+		else:
+			print('Erro sintático na linha: ',line_aux[k], " se esperava array ou file ou set ou record ou sitype");
+			return False
+
 	pass
 
 
@@ -349,9 +534,3 @@ class analise_sintatica():
 	def analisador(self, token, line_aux):
 		global k
 		k = k+1
-		#self.program(token,line_aux,0)
-		#print(self.simple_type(token, line_aux))
-		#print(self.simple_expression(token, line_aux))
-		print(self.const(token, line_aux))
-		#print(self.term(token,line_aux))
-		# print(self.index_field_pointer(token,line_aux))
